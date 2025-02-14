@@ -37,13 +37,9 @@ output2 = """
 24
 """.strip()
 
-# 1. 通常は購入金額の 1 ％（小数点以下切り捨て）とする
-# 2. ただし、3 のつく日は購入金額の 3 ％（小数点以下切り捨て）とする
-# 3. ただし、5 のつく日は購入金額の 5 ％（小数点以下切り捨て）とする
-import math
-
 
 def main():
+    # この問題はgridの範囲検索(R×C)の範囲で全ての範囲を検索する箇所がメインのロジックである。
     H, W = map(int, input().split())
 
     sea_position = [[(i, j) for j in range(1, W)] for i in range(1, H)]
