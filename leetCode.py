@@ -1,24 +1,42 @@
+from typing import List, Union
+from itertools import groupby
+
+
 class Solution:
-    def canPlaceFlowers(self, flowerbed: list[int], n: int) -> bool:
-        # 両隣が0であるかどうか判定する => Trueの場合は1を代入
-        # 代入した回数も計る
-        # 代入した回数とnがイコールならTrue
-        # print(max((len(list(g)) for k, g in groupby(flowerbed) if k == 0), default=0))
-        prev = 0
-        count = 0
+    def removeDuplicates(self, nums: List[int]) -> int:
+        # 配列が2以下なら変更の必要なし
+        if len(nums) <= 2:
+            return len(nums)
 
-        for i in range(0, len(flowerbed)):
-            print(flowerbed[prev : i + 2])
+        # insertする位置を示すポインタ
+        k = 2
 
-            if all(num == 0 for num in flowerbed[prev : i + 2]):
-                # print(i, prev)
-                flowerbed[i] = 1
-                count += 1
+        # 3番目の要素から順にチェック
+        for i in range(2, len(nums)):
+            # 現在の数が2つ前の位置の数と異なれば追加可能
+            if nums[i] != nums[k - 2]:
+                nums[k] = nums[i]
+                k += 1
 
-            prev = i
-        print(count)
-        return count == n
+        return k
 
 
-solution = Solution()
-print(solution.canPlaceFlowers(flowerbed=[0, 0, 1, 0, 0], n=1))
+s = Solution()
+
+nums: list[int] = [1, 1, 1, 2, 2, 3]
+
+expectedNums: list[Union[int, str]] = [
+    1,
+    1,
+    2,
+    2,
+    3,
+]
+
+
+k: int = s.removeDuplicates(nums)
+
+assert k == len(expectedNums)
+
+for i in range(k):
+    assert nums[i] == expectedNums[i]
