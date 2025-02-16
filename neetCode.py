@@ -1,37 +1,50 @@
-# Given an integer array nums and an integer k, return the k most frequent elements within the array.
+# Encode and Decode Strings
+# Design an algorithm to encode a list of strings to a single string. The encoded string is then decoded back to the original list of strings.
 
-# The test cases are generated such that the answer is always unique.
-
-# You may return the output in any order.
+# Please implement encode and decode
 
 # Example 1:
 
-# Input: nums = [1,2,2,3,3,3], k = 2
+# Input: ["neet","code","love","you"]
 
-# Output: [2,3]
+# Output:["neet","code","love","you"]
 # Example 2:
 
-# Input: nums = [7,7], k = 1
+# Input: ["we","say",":","yes"]
 
-# Output: [7]
+# Output: ["we","say",":","yes"]
 # Constraints:
 
-# 1 <= nums.length <= 10^4.
-# -1000 <= nums[i] <= 1000
-# 1 <= k <= number of distinct elements in nums.
-
-
-from collections import Counter
+# 0 <= strs.length < 100
+# 0 <= strs[i].length < 200
+# strs[i] contains only UTF-8 characters.
 
 
 class Solution:
-    def topKFrequent(self, nums: list[int], k: int) -> list[int]:
 
-        return list(map(lambda x: x[0], Counter(nums).most_common(k)))
+    def encode(self, strs: list[str]) -> str:
+        # 各文字列の長さと内容を "長さ#文字列" の形式で連結
+        return "".join(f"{len(s)}#{s}" for s in strs)
+
+    def decode(self, s: str) -> list[str]:
+        # 4#neet4#code4#love3#you
+        result = []
+        i = 0
+        while i < len(s):
+            j = i
+
+            while s[j] != "#":
+                j += 1
+            length = int(s[i:j])
+
+            result.append(s[j + 1 : j + 1 + length])
+
+            i = j + 1 + length
+
+        return result
 
 
+# Output:["neet","code","love","you"]
 s = Solution()
-k = 2
-output = [3, 2]
-print(s.topKFrequent(nums=[1, 2, 2, 3, 3, 3], k=2))
-assert output == s.topKFrequent(nums=[1, 2, 2, 3, 3, 3], k=2)
+input = ["neet", "code", "love", "you"]
+assert input == s.decode(s.encode(input))
