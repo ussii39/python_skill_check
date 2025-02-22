@@ -1,39 +1,17 @@
-from collections import Counter
-
-
+# https://leetcode.com/problems/happy-number/?envType=study-plan-v2&envId=top-interview-150
 class Solution:
-    def wordPattern(self, pattern: str, s: str) -> bool:
-        words = s.split()
-
-        # パターンと単語の数が異なる場合はFalse
-        if len(pattern) != len(words):
+    def isHappy(self, n: int) -> bool:
+        result = sum([int(num) ** 2 for num in list(str(n))])
+        print(result)
+        if n == 1:
+            return True
+        elif 1 == result:
+            return True
+        elif 9 >= result:
             return False
-
-        # 双方向のマッピングを保持
-        char_to_word = {}
-        word_to_char = {}
-
-        # パターンと単語を同時に走査
-        for char, word in zip(pattern, words):
-            if char not in char_to_word:
-                if word in word_to_char:
-                    return False
-                char_to_word[char] = word
-                word_to_char[word] = char
-            elif char_to_word[char] != word:
-                return False
-
-        print(char_to_word)
-        print(word_to_char)
-        return True
+        else:
+            return self.isHappy(n=result)
 
 
 s = Solution()
-test_cases = [
-    {"pattern": "abba", "s": "dog cat cat dog", "expected": True},
-    {"pattern": "abba", "s": "dog cat cat fish", "expected": False},
-    {"pattern": "aaaa", "s": "dog cat cat dog", "expected": False},
-]
-for test in test_cases:
-    # assert test["expected"] == s.wordPattern(test["pattern"], test["s"])
-    print(s.wordPattern(test["pattern"], test["s"]))
+print(s.isHappy(n=1111111))
