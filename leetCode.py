@@ -1,17 +1,17 @@
-# https://leetcode.com/problems/happy-number/?envType=study-plan-v2&envId=top-interview-150
+from typing import Set
+
+
 class Solution:
-    def isHappy(self, n: int) -> bool:
-        result = sum([int(num) ** 2 for num in list(str(n))])
-        print(result)
-        if n == 1:
-            return True
-        elif 1 == result:
-            return True
-        elif 9 >= result:
-            return False
-        else:
-            return self.isHappy(n=result)
+    def findDifference(self, nums1: list[int], nums2: list[int]) -> list[list[int]]:
+        # n1_len = len(nums1)
+        # n2_len = len(nums2)
+        set1 = set(nums1)
+        set2 = set(nums2)
+        unique_to_num1 = list(set1 - set2)
+        unique_to_num2 = list(set2 - set1)
+
+        return [unique_to_num1, unique_to_num2]
 
 
 s = Solution()
-print(s.isHappy(n=1111111))
+print(s.findDifference(nums1=[1, 2, 3], nums2=[2, 4, 6]))
