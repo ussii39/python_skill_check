@@ -1,35 +1,11 @@
-class Solution:
-    def reverseVowels(self, s: str) -> str:
-        vowels = set(["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"])
-        s_list = list(s)  # 文字列をリストに変換（Pythonの文字列は不変なため）
+# https://leetcode.com/problems/two-sum/
+def twoSum(nums, target):
+    # すべての組み合わせを試す
+    for i in range(len(nums)):
+        for j in range(i + 1, len(nums)):
+            # 2つの数の和がtargetと一致するか確認
+            if nums[i] + nums[j] == target:
+                return [i, j]
 
-        # 二つのポインタを使用
-        left, right = 0, len(s) - 1
-
-        while left < right:
-            # 左側のポインタを母音が見つかるまで移動
-            if s_list[left].lower() not in vowels:
-                left += 1
-                continue
-
-            # 右側のポインタを母音が見つかるまで移動
-            if s_list[right].lower() not in vowels:
-                right -= 1
-                continue
-
-            # 両方のポインタが母音を指している場合、交換する
-            s_list[left], s_list[right] = s_list[right], s_list[left]
-
-            # ポインタを進める
-            left += 1
-            right -= 1
-
-        # リストを文字列に戻す
-        return "".join(s_list)
-
-
-# テスト
-str = "IceCreAm"
-s = Solution()
-result = s.reverseVowels(str)
-print(result)  # 'AceCreIm' と出力されるはず
+    # 見つからなかった場合
+    return []
