@@ -1,11 +1,27 @@
-# https://leetcode.com/problems/two-sum/
-def twoSum(nums, target):
-    # すべての組み合わせを試す
-    for i in range(len(nums)):
-        for j in range(i + 1, len(nums)):
-            # 2つの数の和がtargetと一致するか確認
-            if nums[i] + nums[j] == target:
-                return [i, j]
+from typing import List
 
-    # 見つからなかった場合
-    return []
+
+class Solution:
+    def twoSum(self, nums, target):
+        # 見た数字とそのインデックスを記録する辞書
+        seen = {}
+
+        # 配列の各数字をチェック
+        for i, num in enumerate(nums):
+            # 「現在の数字と足してtargetになる数」
+            needed = target - num
+
+            # もし必要な数字が既に見つかっていれば
+            if needed in seen:
+                # 答えを返す
+                print(seen)
+                return [seen[needed], i]
+
+            # 現在の数字とインデックスを記録
+            seen[num] = i
+        # 見つからなかった場合
+        return []
+
+
+s = Solution()
+print(s.twoSum(nums=[2, 5, 5, 11], target=10))
