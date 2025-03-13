@@ -25,7 +25,7 @@ class Program
         }
         for(int i = 1; i <= N; i++)
         {
-            var currentActions = new List<string>();
+            var List = new List<string>();
             // List<string> currentActions = new List<string>();
             // currentActions.Clear(); // リストを空にする
             
